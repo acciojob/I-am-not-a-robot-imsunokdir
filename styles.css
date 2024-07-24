@@ -39,6 +39,10 @@ button {
   margin: 20px;
 }
 
+.buttons{
+	display:flex;
+}
+
 #verify{
 	display:none;
 }

@@ -1,5 +1,6 @@
 
 let verify = document.getElementById("verify");
+let res = document.getElementById("para");
 function generateRandomNumber(){
   const random = Math.floor(Math.random() * 5)+1;
   return random
@@ -25,6 +26,7 @@ function generateRandomNumber(){
 	let selectedArr = []
 	for(let i=0;i<images.length;i++){
 		images[i].addEventListener('click',()=>{
+			if(!selectedArr.includes(images[i])){
 			sum+=1;
 			console.log("sum::",sum)
 			images[i].classList.add("selected");
@@ -34,8 +36,9 @@ function generateRandomNumber(){
 					verify.style.display="block"
 					verify.addEventListener("click",()=>{
 						if(selectedArr[0].className === selectedArr[1].className){
-						let res = document.getElementById("para");
 						res.innerText = "You are a human. Congratulations!"
+					}else{
+							res.innerText="We can't verify you as a human. You selected the non-identical tiles."
 					}
 					}) 
 				}
@@ -43,6 +46,7 @@ function generateRandomNumber(){
 			}else{
 				document.getElementById("verify").style.display="none"
 			}
+		}
 			
 		})
 	}
@@ -52,7 +56,8 @@ function generateRandomNumber(){
 			i.classList.remove("selected")
 		}
 		sum=0;
-		document.getElementById("verify").style.display="none"
+		document.getElementById("verify").style.display="none";
+		res.innerText=""
 		selectedArr=[]
 	})
 // }
