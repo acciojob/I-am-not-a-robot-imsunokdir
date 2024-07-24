@@ -1,10 +1,10 @@
 
-
+let verify = document.getElementById("verify");
 function generateRandomNumber(){
   const random = Math.floor(Math.random() * 5)+1;
   return random
 }
-function renderImages(){
+// function renderImages(){
 	const imageContainer = document.querySelector('main');
 	let images = Array.from(imageContainer.querySelectorAll("img"))
 	let randN1 = generateRandomNumber();
@@ -22,24 +22,43 @@ function renderImages(){
 	images.forEach(img => imageContainer.appendChild(img));
 
 	let sum=0;
-	let selectedArr = ""
+	let selectedArr = []
 	for(let i=0;i<images.length;i++){
 		images[i].addEventListener('click',()=>{
 			sum+=1;
+			console.log("sum::",sum)
 			images[i].classList.add("selected");
-			if(sum ==2){
-				document.getElementById("verify").style.display="block"
+			if(sum <=2){
+				selectedArr.push(images[i])
+				if(sum==2){
+					verify.style.display="block"
+					verify.addEventListener("click",()=>{
+						if(selectedArr[0].className === selectedArr[1].className){
+						let res = document.getElementById("para");
+						res.innerText = "You are a human. Congratulations!"
+					}
+					}) 
+				}
+				
+			}else{
+				document.getElementById("verify").style.display="none"
 			}
 			
 		})
 	}
-}
-renderImages()
+	const reset = document.getElementById("reset");
+	reset.addEventListener('click',()=>{
+		for(i of images){
+			i.classList.remove("selected")
+		}
+		sum=0;
+		document.getElementById("verify").style.display="none"
+		selectedArr=[]
+	})
+// }
+// renderImages()
 
-const reset = document.getElementById("reset");
-reset.addEventListener('click',()=>{
-	location.reload()
-})
+
 
 
 
